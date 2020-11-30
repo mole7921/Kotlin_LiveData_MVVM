@@ -11,7 +11,7 @@ import com.enzo.livedata_mvvm.databinding.FragmentMainBinding
 
 
 
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment() {
     private var _binding: FragmentMainBinding? = null
     //This property only valid between onCreateView and onDestoryView
     private val binding: FragmentMainBinding get()= _binding!!
@@ -35,7 +35,7 @@ class MainFragment : Fragment() {
 
 
         binding.button.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_photoFragment)
+            nav().navigate(R.id.action_mainFragment_to_photoFragment)
             }
     }
 

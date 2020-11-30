@@ -42,4 +42,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         verifyStoragePermissions(this)
     }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
 }

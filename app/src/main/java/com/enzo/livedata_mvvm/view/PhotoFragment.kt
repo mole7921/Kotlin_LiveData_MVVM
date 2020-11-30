@@ -21,7 +21,7 @@ import com.enzo.livedata_mvvm.viewmodel.PhotoViewModel
 
 
 
-class PhotoFragment : Fragment() {
+class PhotoFragment : BaseFragment() {
 
     private var _binding:FragmentPhotoBinding? = null
     //This property only valid between onCreateView and onDestoryView
@@ -71,12 +71,12 @@ class PhotoFragment : Fragment() {
 
         photoViewModel.clickItem.observe(viewLifecycleOwner,{
             sharedViewModel.storage(it)
-            findNavController().navigate(R.id.action_photoFragment_to_detailFragment)
+            nav().navigate(R.id.action_photoFragment_to_detailFragment)
         })
 
     }
 
-    fun initRecyclerView(){
+    private fun initRecyclerView(){
         binding.recycleView.layoutManager = GridLayoutManager(activity, 4)
         adapter = PhotoAdapter(photoViewModel)
         binding.recycleView.adapter = adapter

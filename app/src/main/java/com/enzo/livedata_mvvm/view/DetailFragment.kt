@@ -16,7 +16,7 @@ import com.enzo.livedata_mvvm.viewmodel.SharedViewModel
 import kotlinx.coroutines.launch
 
 
-class DetailFragment : Fragment() {
+class DetailFragment : BaseFragment() {
     private var _binding: FragmentDetailBinding? = null
     //This property only valid between onCreateView and onDestoryView
     private val binding: FragmentDetailBinding get()= _binding!!
@@ -58,7 +58,7 @@ class DetailFragment : Fragment() {
 
 
         binding.root.setOnClickListener {
-            findNavController().popBackStack()
+            nav().popBackStack()
         }
     }
 

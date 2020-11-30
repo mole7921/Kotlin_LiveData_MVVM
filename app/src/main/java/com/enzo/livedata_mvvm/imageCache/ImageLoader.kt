@@ -67,10 +67,10 @@ import java.lang.ref.WeakReference
 
     @Throws(IOException::class)
    private fun  downloadImage(url: String): Bitmap? {
-        val okhttpClient = OkHttpClient()
+        val okHttpClient = OkHttpClient()
         var bitmap: Bitmap?
         val req = Request.Builder().url(url).header("user-agent", "Chrome 74 on Windows 10").build()
-        val response = okhttpClient.newCall(req).execute()
+        val response = okHttpClient.newCall(req).execute()
         if (!response.isSuccessful) {
             throw IOException("Unexpected code $response")
         }
