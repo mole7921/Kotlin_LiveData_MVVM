@@ -48,9 +48,7 @@ class PhotoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recycleView.layoutManager = GridLayoutManager(activity, 4)
-        adapter = PhotoAdapter(photoViewModel)
-        binding.recycleView.adapter = adapter
+        initRecyclerView()
 
         /* ViewLifecycleOwner :
         * Fragment 的 View 會跟著其中的 onCreatView 與 onDestroyView 產生與回收，
@@ -76,6 +74,12 @@ class PhotoFragment : Fragment() {
             findNavController().navigate(R.id.action_photoFragment_to_detailFragment)
         })
 
+    }
+
+    fun initRecyclerView(){
+        binding.recycleView.layoutManager = GridLayoutManager(activity, 4)
+        adapter = PhotoAdapter(photoViewModel)
+        binding.recycleView.adapter = adapter
     }
 
     override fun onDestroyView() {

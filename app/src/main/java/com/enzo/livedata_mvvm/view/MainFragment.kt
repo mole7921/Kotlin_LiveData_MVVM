@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.enzo.livedata_mvvm.R
 import com.enzo.livedata_mvvm.databinding.FragmentMainBinding
-import kotlinx.android.synthetic.main.fragment_main.*
+
 
 
 class MainFragment : Fragment() {

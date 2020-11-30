@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.enzo.livedata_mvvm.R
 import com.enzo.livedata_mvvm.databinding.FragmentDetailBinding
-import com.enzo.livedata_mvvm.databinding.FragmentMainBinding
 import com.enzo.livedata_mvvm.imageCache.DoubleCache
 import com.enzo.livedata_mvvm.imageCache.ImageLoader
 import com.enzo.livedata_mvvm.imageCache.MD5Encoder
