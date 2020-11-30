@@ -10,7 +10,6 @@ import okhttp3.Request
 import java.io.BufferedInputStream
 import java.io.IOException
 import java.lang.ref.WeakReference
-import java.util.concurrent.Executors
 
  object ImageLoader {
      private var imageViewWeakReference: WeakReference<ImageView>? = null

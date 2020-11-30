@@ -7,6 +7,7 @@ import com.enzo.livedata_mvvm.model.Photo
 
 class SharedViewModel:ViewModel() {
 
+    //fragment間共享資料
     private val _data = MutableLiveData<Photo>()
     val data: LiveData<Photo>
         get() = _data
