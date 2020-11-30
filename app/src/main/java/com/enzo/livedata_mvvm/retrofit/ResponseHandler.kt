@@ -26,7 +26,7 @@ open class ResponseHandler {
             ErrorCodes.SocketTimeOut.code -> "Timeout"
             401 -> "Unauthorised"
             404 -> "Not found"
-            else -> "Something went wrong"
+            else -> "please check your network"
         }
     }
 }

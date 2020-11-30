@@ -2,7 +2,7 @@ package com.enzo.livedata_mvvm.viewmodel
 
 
 
-import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +10,6 @@ import androidx.lifecycle.viewModelScope
 import com.enzo.livedata_mvvm.model.Photo
 import com.enzo.livedata_mvvm.model.PhotoModel
 import com.enzo.livedata_mvvm.model.PhotoRepository
-import com.enzo.livedata_mvvm.retrofit.ApiService
 import com.enzo.livedata_mvvm.retrofit.Resource
 import com.enzo.livedata_mvvm.retrofit.ResponseHandler
 import com.enzo.livedata_mvvm.retrofit.RetrofitManager.apiService
