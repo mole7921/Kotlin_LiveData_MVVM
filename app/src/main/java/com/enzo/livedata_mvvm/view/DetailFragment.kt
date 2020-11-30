@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.enzo.livedata_mvvm.R
 import com.enzo.livedata_mvvm.databinding.FragmentDetailBinding
@@ -14,6 +15,7 @@ import com.enzo.livedata_mvvm.imageCache.DoubleCache
 import com.enzo.livedata_mvvm.imageCache.ImageLoader
 import com.enzo.livedata_mvvm.imageCache.MD5Encoder
 import com.enzo.livedata_mvvm.viewmodel.SharedViewModel
+import kotlinx.coroutines.launch
 
 
 class DetailFragment : Fragment() {
@@ -40,14 +42,22 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var photo =  sharedViewModel.data.value
-        if (photo != null) {
-            binding.photoId.text = photo.id
-            binding.title.text = photo.title
-            photo.url?.let {
-                binding.imageView2.tag = MD5Encoder.encode(it)
-                ImageLoader.displayImage(it,binding.imageView2, DoubleCache()) }
-        }
+
+
+
+        sharedViewModel.data.observe(viewLifecycleOwner,
+                { photo ->
+                    binding.photoId.text = photo.id
+                    binding.title.text = photo.title
+                    photo.url?.let {
+                        binding.imageView2.tag = MD5Encoder.encode(it)
+                        viewLifecycleOwner.lifecycleScope.launch{
+                            ImageLoader.displayImage(it,binding.imageView2, DoubleCache())
+                        }
+                    }
+                })
+
+
 
         binding.root.setOnClickListener {
             findNavController().popBackStack()

@@ -11,7 +11,7 @@ class SharedViewModel:ViewModel() {
     val data: LiveData<Photo>
         get() = _data
 
-    fun select(photo: Photo) {
+    fun storage(photo: Photo) {
         _data.value = photo
     }
 

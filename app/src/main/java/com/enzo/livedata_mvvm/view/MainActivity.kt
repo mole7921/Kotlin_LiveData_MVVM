@@ -6,11 +6,15 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
-import com.enzo.livedata_mvvm.R
+import com.enzo.livedata_mvvm.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
-    private val REQUEST_EXTERNAL_STORAGE_CODE = 1
-    private val PERMISSIONS_STORAGE = arrayOf(
+    private var _binding: ActivityMainBinding? = null
+    //This property only valid between onCreateView and onDestoryView
+    private val binding: ActivityMainBinding get()= _binding!!
+    private val requestCode = 1
+    private val permissionStorage = arrayOf(
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS
@@ -25,8 +29,8 @@ class MainActivity : AppCompatActivity() {
         if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                 activity,
-                PERMISSIONS_STORAGE,
-                REQUEST_EXTERNAL_STORAGE_CODE
+                    permissionStorage,
+                    requestCode
             )
         }
     }
@@ -34,7 +38,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         verifyStoragePermissions(this)
     }
 }

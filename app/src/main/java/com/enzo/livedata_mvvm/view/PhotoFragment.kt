@@ -62,11 +62,11 @@ class PhotoFragment : Fragment() {
 
         photoViewModel.dataList.observe(viewLifecycleOwner,
                 {
-                    adapter.setPhotos(it)
+                    adapter.notifyDataSetChanged()
                 })
 
         photoViewModel.clickItem.observe(viewLifecycleOwner,{
-            sharedViewModel.select(it)
+            sharedViewModel.storage(it)
             findNavController().navigate(R.id.action_photoFragment_to_detailFragment)
         })
 
