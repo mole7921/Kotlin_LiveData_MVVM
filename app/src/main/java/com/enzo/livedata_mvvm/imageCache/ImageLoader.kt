@@ -74,14 +74,14 @@ import java.lang.ref.WeakReference
         if (!response.isSuccessful) {
             throw IOException("Unexpected code $response")
         }
-        bitmap = if (response.body()!!.contentType().toString().toLowerCase()
-                .contains("application/json") || response.body()!!
+        bitmap = if (response.body!!.contentType().toString().toLowerCase()
+                .contains("application/json") || response.body!!
                 .contentType().toString().toLowerCase().contains("text/plain")
         ) {
             throw IOException("下載資源失敗,下載地址為=$url")
         } else {
             BitmapFactory.decodeStream(
-                BufferedInputStream(response.body()!!.byteStream())
+                BufferedInputStream(response.body!!.byteStream())
             )
         }
         return bitmap
