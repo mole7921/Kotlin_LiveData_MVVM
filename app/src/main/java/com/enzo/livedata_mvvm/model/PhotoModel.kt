@@ -1,7 +1,8 @@
 package com.enzo.livedata_mvvm.model
 
-import retrofit2.Response
+import com.enzo.livedata_mvvm.retrofit.Resource
+
 
 interface PhotoModel {
-    suspend fun getDataList(): Result<Response<List<Photo>>>
+    suspend fun getDataList(): Resource<List<Photo>>
 }

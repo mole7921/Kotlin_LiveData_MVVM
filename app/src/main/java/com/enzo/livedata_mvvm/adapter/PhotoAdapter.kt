@@ -1,10 +1,9 @@
 package com.enzo.livedata_mvvm.adapter
 
 
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.enzo.livedata_mvvm.databinding.ItemViewBinding
@@ -29,7 +28,7 @@ class PhotoAdapter(private val photoViewModel: PhotoViewModel) : RecyclerView.Ad
     }
 
     override fun getItemCount(): Int {
-        list = photoViewModel.dataList.value
+        list = photoViewModel.dataList.value?.data
         return list?.count() ?: 0
     }
 

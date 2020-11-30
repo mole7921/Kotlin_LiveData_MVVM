@@ -1,21 +1,26 @@
 package com.enzo.livedata_mvvm.model
 
+import android.util.Log
+import com.enzo.livedata_mvvm.retrofit.ApiService
+import com.enzo.livedata_mvvm.retrofit.Resource
+import com.enzo.livedata_mvvm.retrofit.ResponseHandler
 import com.enzo.livedata_mvvm.retrofit.RetrofitManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
-class PhotoRepository:PhotoModel {
+class PhotoRepository( private val apiService: ApiService,
+                       private val responseHandler: ResponseHandler):PhotoModel {
 
-    override suspend fun getDataList(): Result<Response<List<Photo>>>
-            = withContext(Dispatchers.IO) {
-        //抓取例外，如果成功回傳Success，不成功回傳例外
-        kotlin.runCatching {
-            //使用Retrofit進行網路連線＆資料處理
-            val response =
-                    RetrofitManager.apiService.getDatas()
 
-            response
+    override suspend fun getDataList(): Resource<List<Photo>> {
+        return try {
+            val response = apiService.getDatas()
+            return responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            responseHandler.handleException(e)
         }
     }
+
+
 }

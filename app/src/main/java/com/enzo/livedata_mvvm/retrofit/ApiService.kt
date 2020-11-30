@@ -16,7 +16,7 @@ interface ApiService {
 
     // 設置一個GET連線，路徑為photos
     @GET("photos")
-   suspend fun getDatas(): Response<List<Photo>>
+   suspend fun getDatas(): List<Photo>
 
 
     // 用{}表示路徑參數，@Path會將參數帶入至該位置

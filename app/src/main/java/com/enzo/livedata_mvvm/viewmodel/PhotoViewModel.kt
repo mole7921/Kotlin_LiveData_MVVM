@@ -2,6 +2,7 @@ package com.enzo.livedata_mvvm.viewmodel
 
 
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,15 +10,19 @@ import androidx.lifecycle.viewModelScope
 import com.enzo.livedata_mvvm.model.Photo
 import com.enzo.livedata_mvvm.model.PhotoModel
 import com.enzo.livedata_mvvm.model.PhotoRepository
+import com.enzo.livedata_mvvm.retrofit.ApiService
+import com.enzo.livedata_mvvm.retrofit.Resource
+import com.enzo.livedata_mvvm.retrofit.ResponseHandler
+import com.enzo.livedata_mvvm.retrofit.RetrofitManager.apiService
 import kotlinx.coroutines.*
 
 
 
 class PhotoViewModel:ViewModel() {
 
-    private val model: PhotoModel = PhotoRepository()
-    private val _dataList = MutableLiveData<List<Photo>>()
-    val dataList: LiveData<List<Photo>>
+    private val model: PhotoModel = PhotoRepository(apiService, ResponseHandler())
+    private val _dataList = MutableLiveData<Resource<List<Photo>>>()
+    val dataList: LiveData<Resource<List<Photo>>>
         get() = _dataList
 
     //一次性的工作例如提示訊息和畫面跳轉
@@ -36,24 +41,7 @@ class PhotoViewModel:ViewModel() {
 
     private fun fetchData(){
         viewModelScope.launch {
-            model.getDataList().fold(
-                onSuccess = { response ->
-
-                    when(response.code()){
-                        200 -> {
-                            _dataList.value = response.body()
-                        }
-                        404 -> {
-
-                        }
-                        500 -> {
-
-                        }
-                    }
-                },
-                onFailure = { exception ->
-                    CancellationException("$exception").printStackTrace()
-                })
+            _dataList.value = model.getDataList()
         }
     }
 
