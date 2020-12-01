@@ -63,7 +63,6 @@ class PhotoFragment : BaseFragment() {
                     when (it.status) {
                         Status.SUCCESS -> adapter.notifyDataSetChanged()
                         Status.ERROR -> Toast.makeText(activity,it.message!!,Toast.LENGTH_LONG).show()
-                       // Status.LOADING -> showLoading()
                     }
                 })
 

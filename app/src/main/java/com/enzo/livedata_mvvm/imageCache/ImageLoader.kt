@@ -38,7 +38,7 @@ object ImageLoader {
             }
             return
         }
-        submitLoadRequest(url, imageView)
+         imageViewWeakReference!!.get()?.let { submitLoadRequest(url, it) }
     }
 
     private suspend fun submitLoadRequest(url: String, imageView: ImageView) {
@@ -73,12 +73,12 @@ object ImageLoader {
         var bitmap: Bitmap?
         val inStream: InputStream?
         val bis: BufferedInputStream?
-
         val req = Request.Builder().url(url).header("user-agent", "Chrome 74 on Windows 10").build()
         val response = okHttpClient.newCall(req).execute()
         if (!response.isSuccessful) {
             throw IOException("Unexpected code $response")
         }
+
         bitmap = if (response.body!!.contentType().toString().toLowerCase()
                 .contains("application/json") || response.body!!
                 .contentType().toString().toLowerCase().contains("text/plain")

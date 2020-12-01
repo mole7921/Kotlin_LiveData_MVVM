@@ -2,6 +2,7 @@ package com.enzo.livedata_mvvm.adapter
 
 
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.viewModelScope
