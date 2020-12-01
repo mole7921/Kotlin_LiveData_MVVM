@@ -61,8 +61,14 @@ class PhotoFragment : BaseFragment() {
         photoViewModel.dataList.observe(viewLifecycleOwner,
                 {
                     when (it.status) {
-                        Status.SUCCESS -> adapter.notifyDataSetChanged()
-                        Status.ERROR -> Toast.makeText(activity,it.message!!,Toast.LENGTH_LONG).show()
+                        Status.SUCCESS -> {
+                            showProgressBar(false)
+                            adapter.notifyDataSetChanged()
+                        }
+                        Status.ERROR -> {
+                            showProgressBar(true)
+                            Toast.makeText(activity,it.message!!,Toast.LENGTH_LONG).show()
+                        }
                     }
                 })
 
@@ -77,6 +83,13 @@ class PhotoFragment : BaseFragment() {
         binding.recycleView.layoutManager = GridLayoutManager(activity, 4)
         adapter = PhotoAdapter(photoViewModel)
         binding.recycleView.adapter = adapter
+    }
+
+    private fun showProgressBar(visible:Boolean){
+        when(visible){
+            true -> binding.progressBar.visibility = View.VISIBLE
+            false -> binding.progressBar.visibility = View.INVISIBLE
+        }
     }
 
     override fun onDestroyView() {
