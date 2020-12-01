@@ -5,7 +5,6 @@ package com.enzo.livedata_mvvm.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.enzo.livedata_mvvm.databinding.ItemViewBinding
@@ -18,7 +17,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 
-class PhotoAdapter(private val photoViewModel: PhotoViewModel,private val viewLifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+class PhotoAdapter(private val photoViewModel: PhotoViewModel) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
     var list: List<Photo>? = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
@@ -27,7 +26,7 @@ class PhotoAdapter(private val photoViewModel: PhotoViewModel,private val viewLi
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         val photo = list!![position]
-        holder.bind(photo,viewLifecycleOwner)
+        holder.bind(photo,photoViewModel)
 
         holder.itemView.setOnClickListener {
             photoViewModel.isClick(photo)
@@ -44,13 +43,13 @@ class PhotoAdapter(private val photoViewModel: PhotoViewModel,private val viewLi
             RecyclerView.ViewHolder(binding.root) {
         var job: Job? = null
 
-        fun bind(photo: Photo,viewLifecycleOwner: LifecycleOwner) {
+        fun bind(photo: Photo, photoViewModel: PhotoViewModel) {
             job?.cancel()
             binding.PhotoId.text = photo.id
             binding.PhotoTitle.text = photo.title
             photo.url?.let {
                 binding.imageView.tag = MD5Encoder.encode(it)
-                job = viewLifecycleOwner.lifecycleScope.launch{
+                job = photoViewModel.viewModelScope.launch{
                     ImageLoader.displayImage(it,binding.imageView, DoubleCache())
                 } }
 

@@ -81,7 +81,7 @@ class PhotoFragment : BaseFragment() {
 
     private fun initRecyclerView(){
         binding.recycleView.layoutManager = GridLayoutManager(activity, 4)
-        adapter = PhotoAdapter(photoViewModel,viewLifecycleOwner)
+        adapter = PhotoAdapter(photoViewModel)
         binding.recycleView.adapter = adapter
     }
 
