@@ -13,6 +13,7 @@ import com.enzo.livedata_mvvm.imageCache.ImageLoader
 import com.enzo.livedata_mvvm.imageCache.MD5Encoder
 import com.enzo.livedata_mvvm.model.Photo
 import com.enzo.livedata_mvvm.viewmodel.PhotoViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 
@@ -36,13 +37,15 @@ class PhotoAdapter(private val photoViewModel: PhotoViewModel) : RecyclerView.Ad
 
     class PhotoViewHolder private constructor(private val binding: ItemViewBinding) :
             RecyclerView.ViewHolder(binding.root) {
+        var job: Job? = null
 
         fun bind(photo: Photo, photoViewModel: PhotoViewModel) {
+            job?.cancel()
             binding.PhotoId.text = photo.id
             binding.PhotoTitle.text = photo.title
             photo.url?.let {
                 binding.imageView.tag = MD5Encoder.encode(it)
-                photoViewModel.viewModelScope.launch{
+                job = photoViewModel.viewModelScope.launch{
                     ImageLoader.displayImage(it,binding.imageView, DoubleCache())
                 } }
 
@@ -50,6 +53,8 @@ class PhotoAdapter(private val photoViewModel: PhotoViewModel) : RecyclerView.Ad
                 photoViewModel.isClick(photo)
             }
         }
+
+
 
         companion object {
             fun from(parent: ViewGroup): PhotoViewHolder {
