@@ -18,14 +18,13 @@ class DiskCache: ImageCache {
      * 從本地讀取圖片
      * @param id
      */
-    fun getBitmapFromLocal(id: String?): Bitmap? {
-        try {
+    private fun getBitmapFromLocal(id: String?): Bitmap? {
+        return try {
             val file = File(CACHE_PATH, id)
-            return BitmapFactory.decodeStream(FileInputStream(file))
+            BitmapFactory.decodeStream(FileInputStream(file))
         } catch (e: Exception) {
-            e.printStackTrace()
+            null
         }
-        return null
     }
 
 

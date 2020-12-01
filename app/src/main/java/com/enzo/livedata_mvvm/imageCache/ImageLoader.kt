@@ -9,9 +9,11 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.BufferedInputStream
 import java.io.IOException
+import java.io.InputStream
 import java.lang.ref.WeakReference
 
- object ImageLoader {
+
+object ImageLoader {
      private var imageViewWeakReference: WeakReference<ImageView>? = null
      private var mImageCache: ImageCache? = null
 
@@ -69,6 +71,9 @@ import java.lang.ref.WeakReference
    private fun  downloadImage(url: String): Bitmap? {
         val okHttpClient = OkHttpClient()
         var bitmap: Bitmap?
+        val inStream: InputStream?
+        val bis: BufferedInputStream?
+
         val req = Request.Builder().url(url).header("user-agent", "Chrome 74 on Windows 10").build()
         val response = okHttpClient.newCall(req).execute()
         if (!response.isSuccessful) {
@@ -79,11 +84,16 @@ import java.lang.ref.WeakReference
                 .contentType().toString().toLowerCase().contains("text/plain")
         ) {
             throw IOException("下載資源失敗,下載地址為=$url")
+            null
         } else {
-            BitmapFactory.decodeStream(
-                BufferedInputStream(response.body!!.byteStream())
-            )
+            inStream = response.body!!.byteStream()
+            bis = BufferedInputStream(inStream)
+            BitmapFactory.decodeStream(bis)
         }
+
+        bis?.close()
+        inStream?.close()
+
         return bitmap
     }
 
