@@ -31,6 +31,7 @@ class PhotoFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        adapter = PhotoAdapter(photoViewModel)
     }
 
     override fun onCreateView(
@@ -81,7 +82,6 @@ class PhotoFragment : BaseFragment() {
 
     private fun initRecyclerView(){
         binding.recycleView.layoutManager = GridLayoutManager(activity, 4)
-        adapter = PhotoAdapter(photoViewModel)
         binding.recycleView.adapter = adapter
     }
 
