@@ -2,9 +2,10 @@ package com.enzo.livedata_mvvm.adapter
 
 
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.enzo.livedata_mvvm.databinding.ItemViewBinding
@@ -17,7 +18,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 
-class PhotoAdapter(private val photoViewModel: PhotoViewModel) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+class PhotoAdapter(private val photoViewModel: PhotoViewModel,private val viewLifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
     var list: List<Photo>? = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
@@ -26,7 +27,11 @@ class PhotoAdapter(private val photoViewModel: PhotoViewModel) : RecyclerView.Ad
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         val photo = list!![position]
-        holder.bind(photo,photoViewModel)
+        holder.bind(photo,viewLifecycleOwner)
+
+        holder.itemView.setOnClickListener {
+            photoViewModel.isClick(photo)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -39,19 +44,16 @@ class PhotoAdapter(private val photoViewModel: PhotoViewModel) : RecyclerView.Ad
             RecyclerView.ViewHolder(binding.root) {
         var job: Job? = null
 
-        fun bind(photo: Photo, photoViewModel: PhotoViewModel) {
+        fun bind(photo: Photo,viewLifecycleOwner: LifecycleOwner) {
             job?.cancel()
             binding.PhotoId.text = photo.id
             binding.PhotoTitle.text = photo.title
             photo.url?.let {
                 binding.imageView.tag = MD5Encoder.encode(it)
-                job = photoViewModel.viewModelScope.launch{
+                job = viewLifecycleOwner.lifecycleScope.launch{
                     ImageLoader.displayImage(it,binding.imageView, DoubleCache())
                 } }
 
-            binding.itemPhoto.setOnClickListener {
-                photoViewModel.isClick(photo)
-            }
         }
 
 
