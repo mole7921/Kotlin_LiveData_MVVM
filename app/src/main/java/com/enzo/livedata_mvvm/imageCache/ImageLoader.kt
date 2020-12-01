@@ -16,6 +16,7 @@ import java.lang.ref.WeakReference
 object ImageLoader {
      private var imageViewWeakReference: WeakReference<ImageView>? = null
      private var mImageCache: ImageCache? = null
+     private val okHttpClient = OkHttpClient()
 
 
 
@@ -69,7 +70,6 @@ object ImageLoader {
 
     @Throws(IOException::class)
    private fun  downloadImage(url: String): Bitmap? {
-        val okHttpClient = OkHttpClient()
         var bitmap: Bitmap?
         val inStream: InputStream?
         val bis: BufferedInputStream?
@@ -93,6 +93,7 @@ object ImageLoader {
 
         bis?.close()
         inStream?.close()
+        response.body!!.close()
 
         return bitmap
     }
