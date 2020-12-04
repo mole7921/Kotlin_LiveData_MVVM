@@ -1,6 +1,7 @@
 package com.enzo.livedata_mvvm.retrofit
 
-enum class Status {
-    SUCCESS,
-    ERROR,
+
+sealed class Status {
+    object Error : Status()
+    object Success : Status()
 }

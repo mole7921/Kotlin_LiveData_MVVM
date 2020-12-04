@@ -27,10 +27,6 @@ class PhotoAdapter(private val photoViewModel: PhotoViewModel) : RecyclerView.Ad
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         val photo = list!![position]
         holder.bind(photo,photoViewModel)
-
-        holder.itemView.setOnClickListener {
-            photoViewModel.isClick(photo)
-        }
     }
 
     override fun getItemCount(): Int {
@@ -52,6 +48,9 @@ class PhotoAdapter(private val photoViewModel: PhotoViewModel) : RecyclerView.Ad
                 job = photoViewModel.viewModelScope.launch{
                     ImageLoader.displayImage(it,binding.imageView, DoubleCache())
                 } }
+            binding.root.setOnClickListener {
+                photoViewModel.isClick(photo)
+            }
 
         }
 

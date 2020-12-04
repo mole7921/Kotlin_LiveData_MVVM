@@ -26,12 +26,14 @@ class PhotoFragment : BaseFragment() {
     private val binding:FragmentPhotoBinding  get()= _binding!!
     private val photoViewModel:PhotoViewModel by viewModels()
     private val sharedViewModel:SharedViewModel by activityViewModels()
-    private lateinit var adapter: PhotoAdapter
+    private val adapter by lazy {
+        PhotoAdapter(photoViewModel)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = PhotoAdapter(photoViewModel)
+
     }
 
     override fun onCreateView(
@@ -62,11 +64,11 @@ class PhotoFragment : BaseFragment() {
         photoViewModel.dataList.observe(viewLifecycleOwner,
                 {
                     when (it.status) {
-                        Status.SUCCESS -> {
+                       is Status.Success -> {
                             showProgressBar(false)
                             adapter.notifyDataSetChanged()
                         }
-                        Status.ERROR -> {
+                        is Status.Error -> {
                             showProgressBar(true)
                             Toast.makeText(activity,it.message!!,Toast.LENGTH_LONG).show()
                         }
