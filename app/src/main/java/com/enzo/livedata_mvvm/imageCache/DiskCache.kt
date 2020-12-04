@@ -11,7 +11,7 @@ import java.io.FileOutputStream
 class DiskCache: ImageCache {
 
 
-    private val CACHE_PATH =
+    private val cachePath =
         Environment.getExternalStorageDirectory().absolutePath + "/PhotoTempCache"
 
     /**
@@ -20,7 +20,7 @@ class DiskCache: ImageCache {
      */
     private fun getBitmapFromLocal(id: String?): Bitmap? {
         return try {
-            val file = File(CACHE_PATH, id)
+            val file = File(cachePath, id)
             BitmapFactory.decodeStream(FileInputStream(file))
         } catch (e: Exception) {
             null
@@ -37,7 +37,7 @@ class DiskCache: ImageCache {
     override fun put(id: String, bitmap: Bitmap) {
         val md5: String? = MD5Encoder.encode(id)
 
-        val baseFile = File(CACHE_PATH)
+        val baseFile = File(cachePath)
 
         if (!baseFile.exists() || !baseFile.isDirectory) {
             baseFile.mkdirs()

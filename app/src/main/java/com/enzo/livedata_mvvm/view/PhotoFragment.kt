@@ -22,7 +22,7 @@ import com.enzo.livedata_mvvm.viewmodel.PhotoViewModel
 class PhotoFragment : BaseFragment() {
 
     private var _binding:FragmentPhotoBinding? = null
-    //This property only valid between onCreateView and onDestoryView
+    //This property only valid between onCreateView and onDestroyView
     private val binding:FragmentPhotoBinding  get()= _binding!!
     private val photoViewModel:PhotoViewModel by viewModels()
     private val sharedViewModel:SharedViewModel by activityViewModels()
@@ -85,6 +85,7 @@ class PhotoFragment : BaseFragment() {
     private fun initRecyclerView(){
         binding.recycleView.layoutManager = GridLayoutManager(activity, 4)
         binding.recycleView.adapter = adapter
+
     }
 
     private fun showProgressBar(visible:Boolean){
