@@ -37,16 +37,16 @@ class DiskCache: ImageCache {
     override fun put(id: String, bitmap: Bitmap) {
         val md5: String? = MD5Encoder.encode(id)
 
-        val baseFile: File = File(CACHE_PATH)
+        val baseFile = File(CACHE_PATH)
 
         if (!baseFile.exists() || !baseFile.isDirectory) {
             baseFile.mkdirs()
         }
 
-        val bitemapFile = File(baseFile, md5)
+        val bitmapFile = File(baseFile, md5)
 
         try {
-            val fos = FileOutputStream(bitemapFile)
+            val fos = FileOutputStream(bitmapFile)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
         } catch (e: FileNotFoundException) {
             e.printStackTrace()

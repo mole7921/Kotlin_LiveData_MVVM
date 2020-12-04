@@ -21,7 +21,7 @@ class PhotoRepositoryTest{
     private val photoList = arrayListOf(Photo("0","1","First","url1","thumbUrl1"),
         Photo("1","2","Second","url2","thumbUrl2"))
     private val photoListResponse = Resource.success(photoList)
-    private val errorResponse = Resource.error("Unauthorised", null)
+
 
 
 
