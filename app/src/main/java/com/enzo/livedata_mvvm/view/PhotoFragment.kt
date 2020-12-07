@@ -95,8 +95,11 @@ class PhotoFragment : BaseFragment() {
         }
     }
 
+
+
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.recycleView.adapter = null
         _binding = null
     }
 
