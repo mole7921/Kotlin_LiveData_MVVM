@@ -49,7 +49,11 @@ class PhotoFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecyclerView()
+        binding.apply {
+            binding.recycleView.layoutManager = GridLayoutManager(activity, 4)
+            binding.recycleView.adapter = adapter
+        }
+
 
         /* ViewLifecycleOwner :
         * Fragment 的 View 會跟著其中的 onCreatView 與 onDestroyView 產生與回收，
@@ -82,11 +86,7 @@ class PhotoFragment : BaseFragment() {
 
     }
 
-    private fun initRecyclerView(){
-        binding.recycleView.layoutManager = GridLayoutManager(activity, 4)
-        binding.recycleView.adapter = adapter
 
-    }
 
     private fun showProgressBar(visible:Boolean){
         when(visible){

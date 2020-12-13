@@ -6,9 +6,9 @@ import java.io.Serializable
 
 data class Photo(
     @SerializedName("albumId")
-    var albumId: String? = null,
+    var albumId: String?,
     @SerializedName("id")
-    var id: String? = null,
+    var id: String?,
     @SerializedName("title")
     var title: String? = null,
     @SerializedName("url")
