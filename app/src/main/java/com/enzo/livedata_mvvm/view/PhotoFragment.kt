@@ -17,8 +17,10 @@ import com.enzo.livedata_mvvm.model.Photo
 import com.enzo.livedata_mvvm.retrofit.Status
 import com.enzo.livedata_mvvm.viewmodel.SharedViewModel
 import com.enzo.livedata_mvvm.viewmodel.PhotoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class PhotoFragment : BaseFragment(),PhotoAdapter.OnItemClickListener {
 
     private var _binding:FragmentPhotoBinding? = null

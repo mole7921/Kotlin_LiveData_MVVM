@@ -1,13 +1,16 @@
 package com.enzo.livedata_mvvm.model
 
 
+
 import com.enzo.livedata_mvvm.retrofit.ApiService
 import com.enzo.livedata_mvvm.retrofit.Resource
 import com.enzo.livedata_mvvm.retrofit.ResponseHandler
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class PhotoRepository( private val apiService: ApiService,
-                       private val responseHandler: ResponseHandler):PhotoModel {
+@Singleton
+class PhotoRepository @Inject constructor(private val apiService: ApiService,
+                                          private val responseHandler: ResponseHandler):PhotoModel {
 
 
     override suspend fun getDataList(): Resource<List<Photo>> {

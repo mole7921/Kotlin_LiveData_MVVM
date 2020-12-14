@@ -8,6 +8,10 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ApiService {
+    companion object {
+        const val BASE_URL = "https://jsonplaceholder.typicode.com/"
+    }
+
     // 測試網站      https://jsonplaceholder.typicode.com/
     // GET網址      https://jsonplaceholder.typicode.com/photos
     // POST網址     https://jsonplaceholder.typicode.com/photos

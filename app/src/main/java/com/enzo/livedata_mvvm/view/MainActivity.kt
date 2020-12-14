@@ -9,8 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.enzo.livedata_mvvm.R
 import com.enzo.livedata_mvvm.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     //This property only valid between onCreateView and onDestoryView
