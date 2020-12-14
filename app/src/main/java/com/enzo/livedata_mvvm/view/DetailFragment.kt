@@ -42,7 +42,9 @@ class DetailFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
+       /* A LifecycleScope is defined for each Lifecycle object.
+          Any coroutine launched in this scope is canceled when the Lifecycle is destroyed.
+        */
         sharedViewModel.data.observe(viewLifecycleOwner,
                 { photo ->
                     binding.photoId.text = photo.id

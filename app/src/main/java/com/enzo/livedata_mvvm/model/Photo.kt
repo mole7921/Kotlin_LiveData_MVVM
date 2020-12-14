@@ -15,7 +15,31 @@ data class Photo(
     var url: String? = null,
     @SerializedName("thumbnailUrl")
     var thumbnailUrl: String? = null
-):Serializable
+):Serializable{
+    override fun equals(other: Any?): Boolean {
+        if(javaClass != other?.javaClass){
+            return false
+        }
+
+        other as Photo
+        if(albumId != other.albumId){
+            return false
+        }
+        if(id != other.id){
+            return false
+        }
+        if(title != other.title){
+            return false
+        }
+        if(url != other.url){
+            return false
+        }
+        if(thumbnailUrl != other.thumbnailUrl){
+            return false
+        }
+        return true
+    }
+}
 
 
 

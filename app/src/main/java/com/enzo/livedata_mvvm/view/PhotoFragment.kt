@@ -13,13 +13,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.enzo.livedata_mvvm.R
 import com.enzo.livedata_mvvm.adapter.PhotoAdapter
 import com.enzo.livedata_mvvm.databinding.FragmentPhotoBinding
+import com.enzo.livedata_mvvm.model.Photo
 import com.enzo.livedata_mvvm.retrofit.Status
 import com.enzo.livedata_mvvm.viewmodel.SharedViewModel
 import com.enzo.livedata_mvvm.viewmodel.PhotoViewModel
 
 
-
-class PhotoFragment : BaseFragment() {
+class PhotoFragment : BaseFragment(),PhotoAdapter.OnItemClickListener {
 
     private var _binding:FragmentPhotoBinding? = null
     //This property only valid between onCreateView and onDestroyView
@@ -27,7 +27,7 @@ class PhotoFragment : BaseFragment() {
     private val photoViewModel:PhotoViewModel by viewModels()
     private val sharedViewModel:SharedViewModel by activityViewModels()
     private val adapter by lazy {
-        PhotoAdapter(photoViewModel)
+        PhotoAdapter(this,photoViewModel)
     }
 
 
@@ -70,7 +70,7 @@ class PhotoFragment : BaseFragment() {
                     when (it.status) {
                        is Status.Success -> {
                             showProgressBar(false)
-                            adapter.notifyDataSetChanged()
+                            it.data?.let { it1 -> adapter.setPhotoList(it1) }
                         }
                         is Status.Error -> {
                             showProgressBar(true)
@@ -78,12 +78,6 @@ class PhotoFragment : BaseFragment() {
                         }
                     }
                 })
-
-        photoViewModel.clickItem.observe(viewLifecycleOwner,{
-            sharedViewModel.storage(it)
-            nav().navigate(R.id.action_photoFragment_to_detailFragment)
-        })
-
     }
 
 
@@ -95,12 +89,15 @@ class PhotoFragment : BaseFragment() {
         }
     }
 
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         binding.recycleView.adapter = null
         _binding = null
+    }
+
+    override fun onItemClick(photo: Photo) {
+        sharedViewModel.storage(photo)
+        nav().navigate(R.id.action_photoFragment_to_detailFragment)
     }
 
 }

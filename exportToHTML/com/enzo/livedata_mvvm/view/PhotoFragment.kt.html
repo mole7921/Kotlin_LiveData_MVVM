@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>PhotoFragment.kt</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+.s1 { color: #cc7832;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+PhotoFragment.kt</font>
+</center></td></tr></table>
+<pre><span class="s0">private </span><span class="s1">var </span><span class="s0">_binding:FragmentPhotoBinding? = </span><span class="s1">null</span>
+    <span class="s2">//This property only valid between onCreateView and onDestroyView</span>
+    <span class="s0">private </span><span class="s1">val </span><span class="s0">binding:FragmentPhotoBinding  get()= _binding!!</span>
+    <span class="s0">private </span><span class="s1">val </span><span class="s0">photoViewModel:PhotoViewModel by viewModels()</span>
+    <span class="s0">private </span><span class="s1">val </span><span class="s0">sharedViewModel:SharedViewModel by activityViewModels()</span>
+    <span class="s0">private </span><span class="s1">val </span><span class="s0">adapter by lazy {</span>
+        <span class="s0">PhotoAdapter(photoViewModel)</span>
+    <span class="s0">}</span></pre>
+</body>
+</html>

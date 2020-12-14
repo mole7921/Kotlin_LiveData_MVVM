@@ -18,16 +18,15 @@ import kotlinx.coroutines.*
 
 
 class PhotoViewModel:ViewModel() {
-
     private val model: PhotoModel = PhotoRepository(apiService, ResponseHandler())
     private val _dataList = MutableLiveData<Resource<List<Photo>>>()
     val dataList: LiveData<Resource<List<Photo>>>
         get() = _dataList
 
     //一次性的工作例如提示訊息和畫面跳轉
-    private val _clickItem = SingleLiveEvent<Photo>()
-    val clickItem: LiveData<Photo>
-        get() = _clickItem
+//    private val _clickItem = SingleLiveEvent<Photo>()
+//    val clickItem: LiveData<Photo>
+//        get() = _clickItem
 
 
 
@@ -44,10 +43,6 @@ class PhotoViewModel:ViewModel() {
         }
     }
 
-
-     fun isClick(photo:Photo){
-         _clickItem.value = photo
-    }
 
 
 }

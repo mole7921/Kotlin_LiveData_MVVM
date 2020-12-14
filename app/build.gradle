@@ -52,6 +52,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    //RecyclerView use diffutil
+    def recyclerview_version = "1.1.0-beta03"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+
     //mockito
     def mockito_version = "3.1.0"
     testImplementation "org.mockito:mockito-core:$mockito_version"
