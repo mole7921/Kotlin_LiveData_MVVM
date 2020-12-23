@@ -1,13 +1,14 @@
-面試題初試MVVM
+MVVM with Kotlin
 
 API: https://jsonplaceholder.typicode.com, end point: /photos
 
 -  三級緩存
 - 100% Kotlin
+- LiveData
 - Retrofit(with Coroutine)
 - Navigation Component
 - View Binding
-- 
+- Dependency injection with Hilt   (branch hilt_add)
 
 
 
