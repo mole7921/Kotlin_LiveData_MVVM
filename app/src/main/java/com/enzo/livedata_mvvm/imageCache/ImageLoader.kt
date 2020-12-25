@@ -55,7 +55,9 @@ object ImageLoader {
             try {
                 val md5 = MD5Encoder.encode(url)
                 if (md5 == imageView.tag) {
-                    imageView.setImageBitmap(bitmap)
+                    withContext(Dispatchers.Main){
+                        imageView.setImageBitmap(bitmap)
+                    }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

@@ -58,7 +58,7 @@ class PhotoFragment : BaseFragment(),PhotoAdapter.OnItemClickListener {
 
 
         /* ViewLifecycleOwner :
-        * Fragment 的 View 會跟著其中的 onCreatView 與 onDestroyView 產生與回收，
+        * Fragment 的 View 會跟著其中的 onCreateView 與 onDestroyView 產生與回收，
         * 但是 Lifecycle Owner 的週期卻是跟著 Activity 的，
         * 當我們重新連接 Fragment 時，原先的 LiveData 會持有一個新的 Observer，
         * 但 LiveData 不會刪除舊的 Observer，這樣就會造成越來越多的 Observer 在活動狀態，
@@ -72,7 +72,7 @@ class PhotoFragment : BaseFragment(),PhotoAdapter.OnItemClickListener {
                     when (it.status) {
                        is Status.Success -> {
                             showProgressBar(false)
-                            it.data?.let { it1 -> adapter.setPhotoList(it1) }
+                            it.data?.let { photoList -> adapter.setPhotoList(photoList) }
                         }
                         is Status.Error -> {
                             showProgressBar(true)

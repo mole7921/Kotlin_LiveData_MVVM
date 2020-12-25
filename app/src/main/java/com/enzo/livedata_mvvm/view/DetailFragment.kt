@@ -1,18 +1,18 @@
 package com.enzo.livedata_mvvm.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.enzo.livedata_mvvm.databinding.FragmentDetailBinding
 import com.enzo.livedata_mvvm.imageCache.DoubleCache
 import com.enzo.livedata_mvvm.imageCache.ImageLoader
 import com.enzo.livedata_mvvm.imageCache.MD5Encoder
 import com.enzo.livedata_mvvm.viewmodel.SharedViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
@@ -47,6 +47,7 @@ class DetailFragment : BaseFragment() {
         */
         sharedViewModel.data.observe(viewLifecycleOwner,
                 { photo ->
+                    photo.url?.let { Log.e("here!!!!!!", it) };
                     binding.photoId.text = photo.id
                     binding.title.text = photo.title
                     photo.url?.let {
